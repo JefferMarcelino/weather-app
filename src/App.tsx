@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import "./styles/app.css"
 
 type WeatherInformationType = {
   base: string
@@ -18,39 +19,44 @@ type WeatherInformationType = {
   }
   timezone: number
   visibility: number
-  weather: []
+  weather: [
+    {
+      icon: string
+    }
+  ]
   wind: {}
 }
 
 function App() {  
-  const [ weatherInformations, setWeatherInformations ] = useState({} as WeatherInformationType)
+  const [ weatherInformations, setWeatherInformations ] = useState<WeatherInformationType>()
 
   function showPosition(position: any) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${import.meta.env.VITE_API_KEY}`)
     .then(response => response.json())
     .then(data => {
       setWeatherInformations(data)
-      console.log(weatherInformations)
     })
   }
-
+  
   useEffect(() => {
     if (navigator.geolocation) {
       return navigator.geolocation.getCurrentPosition(showPosition)
     } 
-
     return
   }, [])
+  
+  var temp = (Number(weatherInformations?.main.temp) - 273.15).toFixed(0)
+  var tempMax = (Number(weatherInformations?.main.temp_max) - 273.15).toFixed(0)
+  var tempMin = (Number(weatherInformations?.main.temp_min) - 273.15).toFixed(0)
 
   return (
     <div className="App">
-      <div id="weather">
-        <p>Country: { weatherInformations.sys.country }</p>
-        <p>Location: { weatherInformations.name }</p>
-
-        <p>Temperature: { weatherInformations.main.temp }</p>
-        <p>Max temperature: { weatherInformations.main.temp_max }</p>
-        <p>Min temperature: { weatherInformations.main.temp_min }</p>
+      <div className="weather">
+        <h1>{ weatherInformations?.name }</h1>
+        <img src={`http://openweathermap.org/img/wn/${weatherInformations?.weather[0].icon}@2x.png`} alt="" />
+        <p>Temperature: { temp } ºC</p>
+        <p>Max temperature: { tempMax } ºC</p>
+        <p>Min temperature: { tempMin } ºC</p>
       </div>      
     </div>
   )

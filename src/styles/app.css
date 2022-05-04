@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(199, 154, 241);
+    font-family: 'Poppins', sans-serif;
+}
+
+.App {
+    padding: 10px;
+    height: 100vh;
+}
+
+.weather {
+    background-color: rgb(255, 255, 255);
+    max-width: 350px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 500;
+    margin: auto;
+    transform: translateY(100%);
+}
+
+.weather h1 {
+    text-align: center;
+}
+
+.weather img {
+    margin: auto;
+    text-align: center;
+    transform: translateX(100%);
+}
+
+.weather p {
+    margin: 10px;
+}
