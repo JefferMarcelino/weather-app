@@ -9,33 +9,51 @@
 body {
     background-color: rgb(199, 154, 241);
     font-family: 'Poppins', sans-serif;
+    padding: 10px;
 }
 
 .App {
-    padding: 10px;
-    height: 100vh;
-}
-
-.weather {
     background-color: rgb(255, 255, 255);
     max-width: 350px;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     font-weight: 500;
-    margin: auto;
-    transform: translateY(100%);
+    margin: 20px auto;
 }
 
-.weather h1 {
+.App .weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App .weather h1 {
     text-align: center;
 }
 
-.weather img {
+.App .weather img {
     margin: auto;
     text-align: center;
-    transform: translateX(100%);
 }
 
-.weather p {
-    margin: 10px;
+.App .weather > p {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.App .weather div {
+    margin: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+}
+
+.App .weather div p {
+    opacity: .6;
+}
+
+.App .more-info {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 10px;
 }

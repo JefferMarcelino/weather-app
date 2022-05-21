@@ -2,13 +2,13 @@ import { useState, useEffect } from "react"
 import "./styles/app.css"
 
 type WeatherInformationType = {
-  base: string
-  clouds: {}
-  cod: number
-  coord: {}
-  dt: number
-  id: number
+  coord: {
+    lat: number
+    lon: number
+  }
   main: {
+    humidity: number
+    pressure: number
     temp: number
     temp_max: number
     temp_min: number
@@ -17,14 +17,12 @@ type WeatherInformationType = {
   sys: {
     country: string
   }
-  timezone: number
-  visibility: number
   weather: [
     {
+      main: string
       icon: string
     }
   ]
-  wind: {}
 }
 
 function App() {  
@@ -34,6 +32,7 @@ function App() {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${import.meta.env.VITE_API_KEY}`)
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       setWeatherInformations(data)
     })
   }
@@ -54,10 +53,24 @@ function App() {
       <div className="weather">
         <h1>{ weatherInformations?.name }</h1>
         <img src={`http://openweathermap.org/img/wn/${weatherInformations?.weather[0].icon}@2x.png`} alt="" />
-        <p>Temperature: { temp } ºC</p>
-        <p>Max temperature: { tempMax } ºC</p>
-        <p>Min temperature: { tempMin } ºC</p>
-      </div>      
+        <p>{ temp } <sup>ºC</sup></p>
+        <p>{ weatherInformations?.weather[0].main }</p>
+        <div>
+          <p>Max { tempMax } <sup>ºC</sup></p>
+          <p>Min { tempMin } <sup>ºC</sup></p>
+        </div>
+      </div>
+      <div className="more-info">
+        <h2>More Info...</h2>
+        <div className="coord">
+          <p>Lat :{ weatherInformations?.coord.lat }</p>
+          <p>Lon: { weatherInformations?.coord.lon }</p>
+        </div>
+        <p>Humidity: { weatherInformations?.main.humidity }</p>
+        <p>Pressure: { weatherInformations?.main.pressure }</p>
+      </div>
+      <br />
+      <p>@2022 Jeffer Marcelino</p>    
     </div>
   )
 }
